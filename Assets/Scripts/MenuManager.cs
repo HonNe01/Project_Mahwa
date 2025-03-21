@@ -7,4 +7,14 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("DevScene");
     }
+
+    public void GameExit()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void GameEnd()
+    {
+        Application.Quit();
+    }
 }

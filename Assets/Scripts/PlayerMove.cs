@@ -16,12 +16,19 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float wallJumpForce = 10f;
     [SerializeField] float slidingSpeed = 0.5f;
 
+    [Header("Dash")]
+    [SerializeField] private float dashForce = 20f;
+    [SerializeField] private float dashTime = 0.2f;
+    [SerializeField] private float dashCool = 1f;
+
     [Header("Check Setting")]
     [SerializeField] int isRight;
     [SerializeField] bool isGrounded;
     [SerializeField] bool isWallJumping = false;
     [SerializeField] bool isWallSliding;
     [SerializeField] bool canSlding = true;
+    [SerializeField] bool isDash = false;
+    [SerializeField] bool canDash = true;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask wallLayer;
     [SerializeField] float rayDistance = 0.1f;
@@ -52,7 +59,8 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         inputValue = Input.GetAxisRaw("Horizontal");
-        anim.SetFloat("Speed", Mathf.Abs(inputValue));
+        anim.SetFloat("SpeedX", Mathf.Abs(inputValue));
+        anim.SetFloat("SpeedY", rb.linearVelocityY);
 
         if (inputValue != 0 && !isWallJumping)
         {
@@ -91,6 +99,11 @@ public class PlayerMove : MonoBehaviour
         {
             rb.linearVelocityY = rb.linearVelocityY * slidingSpeed;
         }
+
+        if (Input.GetButtonDown("Dash") && canDash && isGrounded)
+        {
+            StartCoroutine(Dash());
+        }
     }
 
     private void FixedUpdate()
@@ -103,7 +116,7 @@ public class PlayerMove : MonoBehaviour
                 // 로프에 매달려 있을 경우 AddForce로 변경
                 rb.AddForce(new Vector2(inputValue * moveSpeed, 0));
             }
-            else
+            else if (!isDash)
             {
                 rb.linearVelocityX = inputValue * moveSpeed;
             }
@@ -115,9 +128,11 @@ public class PlayerMove : MonoBehaviour
         if (inputValue != 0)
         {
             sprite.flipX = isRight < 0;
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
             hook.hookHand.localPosition = new Vector3(isRight < 0 ? -1.62f : 1.62f, 6, 0);
         }
+
+        anim.SetBool("IsHang", hook.isHang);
     }
 
     void Jump()
@@ -138,6 +153,19 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         canSlding = true;
         isWallJumping = false;
+    }
+
+    IEnumerator Dash()
+    {
+        canDash = false;
+        isDash = true;
+        rb.linearVelocityX = isRight * dashForce;
+
+        yield return new WaitForSeconds(dashTime);
+        isDash = false;
+
+        yield return new WaitForSeconds(dashCool);
+        canDash = true;
     }
 
     private void OnDrawGizmosSelected()

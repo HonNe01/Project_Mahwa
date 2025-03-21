@@ -12,6 +12,13 @@ public class PlayerHook : MonoBehaviour
     public bool isLineMax;
     public bool isHang;
 
+    Rigidbody2D rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,6 +42,7 @@ public class PlayerHook : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // 로프 방향 계산
+            rb.linearVelocity = Vector2.zero;
             hook.position = hookHand.position;
             mouseDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - hookHand.position;
 
@@ -57,7 +65,7 @@ public class PlayerHook : MonoBehaviour
         else if (isHook && isLineMax && !isHang)
         {
             // 로프 원위치
-            hook.position = Vector2.MoveTowards(hook.position, hookHand.position, Time.deltaTime * 15);
+            hook.position = Vector2.MoveTowards(hook.position, hookHand.position, Time.deltaTime * 30);
 
             if (Vector2.Distance(hookHand.position, hook.position) < 0.1f)
             {
