@@ -22,21 +22,22 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float dashCool = 1f;
 
     [Header("Check Setting")]
-    [SerializeField] int isRight;
-    [SerializeField] bool isGrounded;
-    [SerializeField] bool isWallJumping = false;
-    [SerializeField] bool isWallSliding;
-    [SerializeField] bool canSlding = true;
-    [SerializeField] bool isDash = false;
-    [SerializeField] bool canDash = true;
+    int isRight;
+    bool isGrounded = true;
+    bool isWallJumping = false;
+    bool isWallSliding = false;
+    bool isDash = false;
+    bool canSlding = true;
+    bool canDash = true;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask wallLayer;
-    [SerializeField] float rayDistance = 0.1f;
+    float rayDistance = 0.1f;
     Vector2 groundCheckPos;
     Vector2 wallCheckPos;
 
     Animator anim;
     PlayerHook hook;
+    PlayerHealth hp;
     Collider2D coll;
     Rigidbody2D rb;
     SpriteRenderer sprite;
@@ -46,6 +47,7 @@ public class PlayerMove : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        hp = GetComponent<PlayerHealth>();
         coll = GetComponent<Collider2D>();
         hook = GetComponent<PlayerHook>();
         sprite = GetComponent<SpriteRenderer>();
@@ -62,7 +64,7 @@ public class PlayerMove : MonoBehaviour
         anim.SetFloat("SpeedX", Mathf.Abs(inputValue));
         anim.SetFloat("SpeedY", rb.linearVelocityY);
 
-        if (inputValue != 0 && !isWallJumping)
+        if (inputValue != 0 && !isWallJumping && !hp.isDead)
         {
             isRight = inputValue > 0 ? 1 : -1;
         }
@@ -76,7 +78,7 @@ public class PlayerMove : MonoBehaviour
         isWallSliding = canSlding && Physics2D.Raycast(wallCheckPos, Vector2.right * isRight, rayDistance, wallLayer);
 
         // 점프
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !hp.isDead)
         {
             if (isGrounded)
             {
@@ -89,7 +91,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         // 짧은 점프
-        if (Input.GetButtonUp("Jump") && rb.linearVelocityY > 0)
+        if (Input.GetButtonUp("Jump") && rb.linearVelocityY > 0 && !hp.isDead)
         {
             rb.linearVelocityY = rb.linearVelocityY * shortJump;
         }
@@ -100,7 +102,7 @@ public class PlayerMove : MonoBehaviour
             rb.linearVelocityY = rb.linearVelocityY * slidingSpeed;
         }
 
-        if (Input.GetButtonDown("Dash") && canDash && isGrounded)
+        if (Input.GetButtonDown("Dash") && canDash && isGrounded && !hp.isDead)
         {
             StartCoroutine(Dash());
         }
@@ -116,7 +118,7 @@ public class PlayerMove : MonoBehaviour
                 // 로프에 매달려 있을 경우 AddForce로 변경
                 rb.AddForce(new Vector2(inputValue * moveSpeed, 0));
             }
-            else if (!isDash)
+            else if (!isDash && !hp.isDead)
             {
                 rb.linearVelocityX = inputValue * moveSpeed;
             }

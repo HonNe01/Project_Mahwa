@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 615ca3b91b5d25b499e4eec9c9a64bba
+guid: 6e5ac38c0f721044ebccd5f44b1794d7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4281637774074219296
-    second: jump_0
+      213: -1137105817393892699
+    second: RopeJump 1_0
   - first:
-      213: -7862396843884538191
-    second: jump_1
+      213: -1756937841338899048
+    second: RopeJump 1_1
   - first:
-      213: 8276514422256456541
-    second: jump_2
+      213: -1253012448437665598
+    second: RopeJump 1_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,10 +106,10 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jump_0
+      name: Hang 0
       rect:
         serializedVersion: 2
-        x: 50
+        x: 0
         y: 0
         width: 600
         height: 800
@@ -121,14 +121,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 02b8694dede6b6b30800000000000000
-      internalID: 4281637774074219296
+      spriteID: 5a2f432a8403830f0800000000000000
+      internalID: -1137105817393892699
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jump_1
+      name: Hang 1
       rect:
         serializedVersion: 2
         x: 700
@@ -143,14 +143,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1b61c1d2ab723e290800000000000000
-      internalID: -7862396843884538191
+      spriteID: 895ad8a875a1e97e0800000000000000
+      internalID: -1756937841338899048
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jump_2
+      name: Hang 2
       rect:
         serializedVersion: 2
         x: 1400
@@ -165,8 +165,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d535ef424061cd270800000000000000
-      internalID: 8276514422256456541
+      spriteID: 2c00bbf11d76c9ee0800000000000000
+      internalID: -1253012448437665598
       vertices: []
       indices: 
       edges: []
@@ -175,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 3387bc748330ffd45bdfcf0737ab0431
+    spriteID: 186dd2cb9d124cf4c9935ce8f24aadf7
     internalID: 0
     vertices: []
     indices: 
@@ -185,9 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      jump_0: 4281637774074219296
-      jump_1: -7862396843884538191
-      jump_2: 8276514422256456541
+      Hang 0: -1137105817393892699
+      Hang 1: -1756937841338899048
+      Hang 2: -1253012448437665598
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

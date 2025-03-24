@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 615ca3b91b5d25b499e4eec9c9a64bba
+guid: 548ed7298123db54c94e7262f2bbe80f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4281637774074219296
-    second: jump_0
-  - first:
-      213: -7862396843884538191
-    second: jump_1
-  - first:
-      213: 8276514422256456541
-    second: jump_2
+      213: -59066101396820148
+    second: hit_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,10 +100,10 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jump_0
+      name: hit_0
       rect:
         serializedVersion: 2
-        x: 50
+        x: 0
         y: 0
         width: 600
         height: 800
@@ -121,52 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 02b8694dede6b6b30800000000000000
-      internalID: 4281637774074219296
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump_1
-      rect:
-        serializedVersion: 2
-        x: 700
-        y: 0
-        width: 600
-        height: 800
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1b61c1d2ab723e290800000000000000
-      internalID: -7862396843884538191
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump_2
-      rect:
-        serializedVersion: 2
-        x: 1400
-        y: 0
-        width: 600
-        height: 800
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d535ef424061cd270800000000000000
-      internalID: 8276514422256456541
+      spriteID: c4fa9f791b72e2ff0800000000000000
+      internalID: -59066101396820148
       vertices: []
       indices: 
       edges: []
@@ -175,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 3387bc748330ffd45bdfcf0737ab0431
+    spriteID: dac73f96284f28144b7be14269886ac2
     internalID: 0
     vertices: []
     indices: 
@@ -185,9 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      jump_0: 4281637774074219296
-      jump_1: -7862396843884538191
-      jump_2: 8276514422256456541
+      hit_0: -59066101396820148
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

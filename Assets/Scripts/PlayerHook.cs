@@ -13,10 +13,12 @@ public class PlayerHook : MonoBehaviour
     public bool isHang;
 
     Rigidbody2D rb;
+    PlayerHealth hp;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        hp = GetComponent<PlayerHealth>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,7 +41,7 @@ public class PlayerHook : MonoBehaviour
         line.SetPosition(0, hookHand.position);
         line.SetPosition(1, hook.position);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !hp.isDead)
         {
             // 로프 방향 계산
             rb.linearVelocity = Vector2.zero;
@@ -77,7 +79,7 @@ public class PlayerHook : MonoBehaviour
         else if (isHang)
         {
             // 로프 끊기
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0) || hp.isDamaged)
             {
                 isHang = false;
                 isHook = false;
