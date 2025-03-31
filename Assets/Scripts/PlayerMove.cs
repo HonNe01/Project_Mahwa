@@ -21,14 +21,20 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float dashCool = 1f;
 
+    [Header("Attack")]
+    public GameObject attackRange;
+
+
     [Header("Check Setting")]
     int isRight;
     bool isGrounded = true;
     bool isWallJumping = false;
     bool isWallSliding = false;
     bool isDash = false;
+    bool isAttack = false;
     bool canSlding = true;
     bool canDash = true;
+    bool canAttack = true;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask wallLayer;
     float rayDistance = 0.1f;
@@ -48,7 +54,7 @@ public class PlayerMove : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         hp = GetComponent<PlayerHealth>();
-        coll = GetComponent<Collider2D>();
+        coll = GetComponentInChildren<Collider2D>();
         hook = GetComponent<PlayerHook>();
         sprite = GetComponent<SpriteRenderer>();
     }
@@ -99,19 +105,27 @@ public class PlayerMove : MonoBehaviour
         // 벽 슬라이딩
         if (isWallSliding && rb.linearVelocityY < 0)
         {
+            anim.SetTrigger("IsWallSliding");
             rb.linearVelocityY = rb.linearVelocityY * slidingSpeed;
         }
 
+        // 대쉬
         if (Input.GetButtonDown("Dash") && canDash && isGrounded && !hp.isDead)
         {
             StartCoroutine(Dash());
+        }
+
+        // 통상 공격
+        if (Input.GetButtonDown("Attack") && canAttack)
+        {
+            StartCoroutine(Attack());
         }
     }
 
     private void FixedUpdate()
     {
         // 좌우 이동
-        if (!isWallJumping)
+        if (!isWallJumping && !isAttack)
         {
             if (hook.isHang)
             {
@@ -130,8 +144,9 @@ public class PlayerMove : MonoBehaviour
         if (inputValue != 0)
         {
             sprite.flipX = isRight < 0;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+
             hook.hookHand.localPosition = new Vector3(isRight < 0 ? -1.62f : 1.62f, 6, 0);
+            attackRange.transform.localPosition = new Vector3(isRight < 0 ? -2.69f : 2.69f, 4.33f, 0);
         }
 
         anim.SetBool("IsHang", hook.isHang);
@@ -168,6 +183,23 @@ public class PlayerMove : MonoBehaviour
 
         yield return new WaitForSeconds(dashCool);
         canDash = true;
+    }
+
+    IEnumerator Attack()
+    {
+        isAttack = true;
+        canAttack = false;
+        anim.SetTrigger("IsAttack");
+        attackRange.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+        canAttack = true;
+    }
+
+    public void endAttack()
+    {
+        isAttack = false;
+        attackRange.SetActive(false);
     }
 
     private void OnDrawGizmosSelected()
