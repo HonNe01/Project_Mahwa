@@ -8,6 +8,10 @@ TagManager:
   - HookPoint
   - EnemyAttack
   - PlayerAttack
+  - Enemy
+  - PlayerHide
+  - Objects
+  - PlayerHitscan
   layers:
   - Default
   - TransparentFX
@@ -18,12 +22,12 @@ TagManager:
   - Wall
   - Ground
   - Player
+  - PlayerHitScan
   - Enemy
   - EnemyAttack
-  - PlayerBody
   - PlayerAttack
-  - 
-  - 
+  - PlayerHide
+  - EnemyView
   - 
   - 
   - 
@@ -42,8 +46,17 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackGround
+    uniqueID: 4261543871
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: FrontGround
+    uniqueID: 3687945001
+    locked: 0
+  - name: UI
+    uniqueID: 3996365743
     locked: 0
   m_RenderingLayers:
   - Default

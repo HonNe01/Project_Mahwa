@@ -7,14 +7,18 @@ public class EnemyHealth : MonoBehaviour
     public int maxEnemyHp = 3;
 
     public bool isDead = false;
+    public bool isSturn = false;
     public bool isDamaged = false;
 
+    public GameObject view;
+    public EnemyMove move;
 
     Animator anim;
     SpriteRenderer sprite;
 
     private void Awake()
     {
+        anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
     }
 
@@ -30,6 +34,30 @@ public class EnemyHealth : MonoBehaviour
         
     }
 
+    public void SturnAnim(bool isJump)
+    {
+        move.StopAllCoroutines();
+        view.SetActive(false);
+
+        anim.SetBool("IsWalk", false);
+
+        if (isJump)
+        {
+            anim.SetTrigger("SturnAnim_Jump");
+        }
+        else
+        {
+            string triggerName = Random.Range(0, 2) == 0 ? "SturnAnim_Stand" : "SturnAnim_Jump";
+            anim.SetTrigger(triggerName);
+        }
+    }
+
+    public void Sturn()
+    {
+        isSturn = true;
+
+        anim.SetBool("IsSturn", true);
+    }
 
     public void TakeDamage(int damage)
     {
@@ -50,20 +78,13 @@ public class EnemyHealth : MonoBehaviour
         isDamaged = true;
         //anim.SetBool("IsDamaged", true);
 
-        for (int i = 0; i < 3; i++)
-        {
-            sprite.color = new Color(1, 1, 1, 0.3f);
-            yield return new WaitForSeconds(0.1f);
-
-            sprite.color = new Color(1, 1, 1, 1);
-            yield return new WaitForSeconds(0.1f);
-            //anim.SetBool("IsDamaged", false);
-            isDamaged = false;
-        }
         sprite.color = new Color(1, 1, 1, 0.3f);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
 
         sprite.color = new Color(1, 1, 1, 1);
+        yield return new WaitForSeconds(0.2f);
+        //anim.SetBool("IsDamaged", false);
+        isDamaged = false;
     }
 
     void Dead()
